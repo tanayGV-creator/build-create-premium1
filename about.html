@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About – build.create</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05050a;
+      --card: rgba(18,18,28,0.75);
+      --border: rgba(255,255,255,0.07);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent1: #00d4ff;
+      --accent2: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .spotlight {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(5,5,10,0.8);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img { width: 36px; height: 36px; object-fit: contain; }
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 6px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 10px;
+      transition: all 0.25s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 40px 100px;
+    }
+    .photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 24px;
+      object-fit: cover;
+      margin-bottom: 32px;
+      border: 2px solid rgba(255,255,255,0.08);
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .highlight { color: var(--accent1); font-weight: 600; }
+    .details {
+      margin-top: 40px;
+      display: grid;
+      gap: 16px;
+    }
+    .detail {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      transition: all 0.3s;
+    }
+    .detail:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateX(4px);
+    }
+    .detail strong {
+      display: block;
+      color: var(--accent1);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: #475569;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) {
+      .content { padding: 50px 24px 80px; }
+      nav { padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="spotlight" id="spotlight"></div>
+  <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="logo" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">build.create</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="projects.html">Projects</a>
+    </div>
+  </nav>
+
+  <div class="content">
+    <img src="me.jpg" alt="Me" class="photo" onerror="this.src='https://via.placeholder.com/160x160/1a1a2e/00d4ff?text=Photo'">
+    <h1>About <span>Me</span></h1>
+    <p>I’m a <span class="highlight">14-year-old entrepreneur</span> from Goa, India. I study at <span class="highlight">Sunshine Worldwide School</span> and spend most of my free time building apps and learning about investments.</p>
+    <p>I started build.create in 2026 with a simple goal — make useful tools that actually work. So far I’ve shipped a stock market app, a car help platform, and this website.</p>
+    <p>When I’m not coding or reading about markets, you’ll find me on the football field.</p>
+
+    <div class="details">
+      <div class="detail">
+        <strong>School</strong>
+        Sunshine Worldwide School, Goa
+      </div>
+      <div class="detail">
+        <strong>Age</strong>
+        14 years old
+      </div>
+      <div class="detail">
+        <strong>Focus</strong>
+        App building · Investments · Football
+      </div>
+      <div class="detail">
+        <strong>Location</strong>
+        Goa, India · Est. 2026
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2026 build.create — India · Est. 2026</footer>
+  <script>
+    const s = document.getElementById('spotlight');
+    document.addEventListener('mousemove', e => {
+      s.style.left = e.clientX + 'px';
+      s.style.top = e.clientY + 'px';
+    });
+  </script>
+</body>
+</html>

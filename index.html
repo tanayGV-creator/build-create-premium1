@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>build.create – 14-year-old Entrepreneur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05050a;
+      --card: rgba(18,18,28,0.75);
+      --border: rgba(255,255,255,0.07);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent1: #00d4ff;
+      --accent2: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Cursor spotlight */
+    .spotlight {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(5,5,10,0.8);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 6px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 10px;
+      transition: all 0.25s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 90px 40px 80px;
+    }
+    .hero-photo {
+      flex-shrink: 0;
+      width: 280px;
+      height: 280px;
+      border-radius: 28px;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.08);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .hero-photo:hover {
+      transform: scale(1.03);
+      box-shadow: 0 40px 80px -20px rgba(0,212,255,0.2);
+    }
+    .hero-content h1 {
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero-content h1 span {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .tagline {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+      max-width: 420px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .badge {
+      padding: 7px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff;
+    }
+    .btn-primary:hover {
+      filter: brightness(1.12);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -8px rgba(0,212,255,0.4);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Sections */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 90px;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: -0.5px;
+    }
+    .section-title span {
+      color: var(--accent1);
+    }
+
+    /* About grid */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s;
+    }
+    .info-card:hover {
+      border-color: rgba(0,212,255,0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0,212,255,0.12);
+    }
+    .info-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--accent1);
+    }
+    .info-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(139,92,246,0.35);
+      box-shadow: 0 25px 50px -15px rgba(139,92,246,0.18);
+    }
+    .project-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+    .project-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      line-height: 1.55;
+    }
+    .project-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent1);
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: gap 0.25s;
+    }
+    .project-card a:hover { gap: 10px; }
+
+    /* Interests */
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .interest {
+      padding: 12px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+    .interest:hover {
+      border-color: var(--accent1);
+      color: var(--accent1);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px;
+      color: #475569;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 24px 50px;
+        gap: 36px;
+      }
+      .hero-photo { width: 220px; height: 220px; }
+      .tagline { margin-left: auto; margin-right: auto; }
+      .badges, .cta-row { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      section { padding: 0 24px 70px; }
+      nav { padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="spotlight" id="spotlight"></div>
+
+  <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="build.create" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">build.create</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <img src="me.jpg" alt="My photo" class="hero-photo" onerror="this.src='https://via.placeholder.com/280x280/1a1a2e/00d4ff?text=Your+Photo'">
+    <div class="hero-content">
+      <h1>Hey, I’m a <span>14-year-old</span><br>entrepreneur</h1>
+      <p class="tagline">Building apps, studying investments, and playing football — all from Goa, India.</p>
+      <div class="badges">
+        <span class="badge">Sunshine Worldwide School</span>
+        <span class="badge">Goa, India</span>
+        <span class="badge">Est. 2026</span>
+      </div>
+      <div class="cta-row">
+        <a href="projects.html" class="btn btn-primary">View Projects →</a>
+        <a href="about.html" class="btn btn-ghost">About Me</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">What I <span>do</span></h2>
+    <div class="about-grid">
+      <div class="info-card">
+        <h3>App Building</h3>
+        <p>I design and code real apps from scratch — stock trackers, car help tools, and more. Clean UI, useful features.</p>
+      </div>
+      <div class="info-card">
+        <h3>Investments</h3>
+        <p>Deeply interested in the stock market and how money works. Building tools to understand markets better.</p>
+      </div>
+      <div class="info-card">
+        <h3>Football</h3>
+        <p>Love the game. Football keeps me sharp, disciplined, and competitive both on and off the pitch.</p>
+      </div>
+      <div class="info-card">
+        <h3>School</h3>
+        <p>Studying at Sunshine Worldwide School, Goa. Balancing academics with building real products.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Live <span>Projects</span></h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="icon">📈</div>
+        <h3>Stock Market App</h3>
+        <p>Live stock tracking with clean charts and market overview.</p>
+        <a href="https://build-create-stocks-1.vercel.app/" target="_blank">Open App →</a>
+      </div>
+      <div class="project-card">
+        <div class="icon">🌐</div>
+        <h3>Main Website</h3>
+        <p>The original build.create site — portfolio and services.</p>
+        <a href="https://build-create1-ten.vercel.app/" target="_blank">Open Website →</a>
+      </div>
+      <div class="project-card">
+        <div class="icon">🚗</div>
+        <h3>Car Help App</h3>
+        <p>Describe a car problem and find nearby mechanics & towing.</p>
+        <a href="https://build-create-cars.vercel.app/" target="_blank">Open App →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Interests</h2>
+    <div class="interests">
+      <div class="interest">📈 Investing</div>
+      <div class="interest">💻 App Building</div>
+      <div class="interest">⚽ Football</div>
+      <div class="interest">🚀 Startups</div>
+      <div class="interest">🧠 Learning</div>
+      <div class="interest">🇮🇳 India</div>
+    </div>
+  </section>
+
+  <footer>© 2026 build.create — India · Est. 2026</footer>
+
+  <script>
+    const spotlight = document.getElementById('spotlight');
+    document.addEventListener('mousemove', (e) => {
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top = e.clientY + 'px';
+    });
+  </script>
+</body>
+</html>
